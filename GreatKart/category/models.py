@@ -1,6 +1,7 @@
 from tabnanny import verbose
 from django.db import models
 from distutils.command.upload import upload
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -14,6 +15,10 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+
+    def get_url(self):
+        """URL for a category"""
+        return reverse('products_by_category', args=[self.slug])
 
     def __str__(self):
         return self.category_name
