@@ -3,8 +3,9 @@ from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
 from store.models import Product
 from .models import Cart, CartItem
+from django.core.exceptions import ObjectDoesNotExist
 
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
 # Create your views here.
 
@@ -73,6 +74,8 @@ def remove_cart_item(request, product_id):
 def cart(request, total=0, quantity=0, cart_items=None):
     """Function to display what is avaible in the cart"""
     try:
+        tax = 0
+        grand_total = 0
         cart = Cart.objects.get(cart_id=_cart_id(
             request))  # get cart session id
         # filter products in present the cart
@@ -83,7 +86,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
             quantity += cart_item.quantity  # Get current number of items
         tax = (2*total)/100
         grand_total = total + tax
-    except ObjectNotExist:
+    except ObjectDoesNotExist:
         pass  # If no items available in the cart,ignore
 
     context = {
