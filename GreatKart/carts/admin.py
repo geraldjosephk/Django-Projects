@@ -6,12 +6,14 @@ from .models import Cart, CartItem
 
 class CartAdmin(admin.ModelAdmin):
     """Class admin model for displaying cart_id, and date product was added"""
-    list_display = ('cart_id', 'date_added')
+
+    list_display = ("cart_id", "date_added")
 
 
 class CartItemAdmin(admin.ModelAdmin):
     """Class admin model for displaying product,cart,quantity,activity"""
-    list_display = ('product', 'cart', 'quantity', 'is_active')
+
+    list_display = ("product", "cart", "quantity", "is_active")
 
 
 admin.site.register(Cart, CartAdmin)

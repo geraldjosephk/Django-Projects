@@ -10,10 +10,10 @@ class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
         """Normal user creation"""
         if not email:
-            raise ValueError('Email required')
+            raise ValueError("Email required")
 
         if not username:
-            raise ValueError('Username required')
+            raise ValueError("Username required")
 
         user = self.model(
             email=self.normalize_email(email),
@@ -47,6 +47,7 @@ class MyAccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     """Model for user details with permissions to access custom Django admin"""
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
@@ -62,8 +63,8 @@ class Account(AbstractBaseUser):
     is_superadmin = models.BooleanField(default=False)
 
     # Specifying fields on login page
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     # Class inheritence
     objects = MyAccountManager()

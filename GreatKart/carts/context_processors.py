@@ -5,8 +5,8 @@ from .views import _cart_id
 def counter(request):
     """Function to count number of items in the cart"""
     cart_count = 0
-    if 'admin' in request.path:
-        return{}
+    if "admin" in request.path:
+        return {}
     else:
         try:
             cart = Cart.objects.filter(cart_id=_cart_id(request))

@@ -4,8 +4,9 @@ from .models import Category
 
 class CategoryAdmin(admin.ModelAdmin):
     """Slug name should equal to category name"""
-    prepopulated_fields = {'slug': ('category_name',)}
-    list_display = ('category_name', 'slug')
+
+    prepopulated_fields = {"slug": ("category_name",)}
+    list_display = ("category_name", "slug")
 
 
 admin.site.register(Category, CategoryAdmin)
