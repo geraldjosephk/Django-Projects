@@ -58,3 +58,7 @@ $(document).ready(function() {
 }); 
 // jquery end
 
+// alert message to fade in 4 seconds
+setTimeout(function(){
+    $('#message').fadeOut('slow')
+}, 4000)
