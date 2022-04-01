@@ -20,7 +20,10 @@ def _cart_id(request):
 
 
 def add_cart(request, product_id):
-    """Function adds item to cart with variations."""
+    """
+    Function adds item to cart with variations.
+    Accepts product_id as an argument.
+    """
 
     # Getting product variation
     product = Product.objects.get(id=product_id)  # get product
@@ -103,7 +106,10 @@ def add_cart(request, product_id):
 
 
 def remove_cart(request, product_id, cart_item_id):
-    """Function to decrease item number in the cart"""
+    """
+    Function to decrease item number in the cart.
+    Accepts product_id, and cart_item_id as argumnts.
+    """
     cart = Cart.objects.get(cart_id=_cart_id(request))  # get get cart session id
     # show item in cart or show not available page
     product = get_object_or_404(Product, id=product_id)
@@ -132,7 +138,10 @@ def remove_cart_item(request, product_id, cart_item_id):
 
 
 def cart(request, total=0, quantity=0, cart_items=None):
-    """Function to display what is avaible in the cart"""
+    """
+    Function to display what is avaible in the cart.
+    Accepts total,quantity and cart_items as arguments.
+    """
     try:
         tax = 0
         grand_total = 0

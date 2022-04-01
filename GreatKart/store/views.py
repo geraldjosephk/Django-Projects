@@ -13,7 +13,7 @@ from django.db.models import Q
 
 
 def store(request, category_slug=None):
-    """Function to load available products in store"""
+    """Function to load available products in store."""
     categories = None
     products = None
 
@@ -40,8 +40,10 @@ def store(request, category_slug=None):
 
 
 def product_detail(request, category_slug, product_slug):
-    """Function returns product details of products. If
-    product is not in database, 404 page is dispalyed"""
+    """
+    Function returns product details of products.
+    If product is not in database, 404 page is dispalyed
+    """
     try:
         single_product = Product.objects.get(
             category__slug=category_slug, slug=product_slug
@@ -63,7 +65,7 @@ def product_detail(request, category_slug, product_slug):
 
 
 def search(request):
-    """Function to checks the keyword value from the search url"""
+    """Function to checks the keyword value from the search url."""
     if "keyword" in request.GET:
         keyword = request.GET["keyword"]
         if keyword:
