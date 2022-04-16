@@ -24,7 +24,7 @@ from . import views  # including views module in admin
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home),  # registering home page
+    path("", views.home, name="home"),  # registering home page
     path("store/", include("store.urls")),  # registering store page
     path("cart/", include("carts.urls")),
     path("accounts/", include("accounts.urls")),
