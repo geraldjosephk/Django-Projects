@@ -191,13 +191,22 @@ def remove_cart(request, product_id, cart_item_id):
     Function to decrease item number in the cart.
     Accepts product_id, and cart_item_id as argumnts.
     """
-    cart = Cart.objects.get(cart_id=_cart_id(request))  # get get cart session id
+
     # show item in cart or show not available page
     product = get_object_or_404(Product, id=product_id)
     try:
-        cart_item = CartItem.objects.get(
-            product=product, cart=cart, id=cart_item_id
-        )  # fetch items in cart
+        if request.user.is_authenticated:
+            cart_item = CartItem.objects.get(
+                product=product, user=request.user, id=cart_item_id
+            )  # fetch items in cart
+        else:
+            cart = Cart.objects.get(
+                cart_id=_cart_id(request)
+            )  # get get cart session id
+            cart_item = CartItem.objects.get(
+                product=product, cart=cart, id=cart_item_id
+            )
+
         if cart_item.quantity > 1:
             cart_item.quantity -= 1  # decrease cart item by 1
             cart_item.save()
@@ -211,9 +220,17 @@ def remove_cart(request, product_id, cart_item_id):
 
 def remove_cart_item(request, product_id, cart_item_id):
     """Function to remove item from cart"""
-    cart = Cart.objects.get(cart_id=_cart_id(request))
+
     product = get_object_or_404(Product, id=product_id)
-    cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
+
+    if request.user.is_authenticated:
+        cart_item = CartItem.objects.get(
+            product=product, user=request.user, id=cart_item_id
+        )
+    else:
+        cart = Cart.objects.get(cart_id=_cart_id(request))
+        cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
+
     cart_item.delete()
     return redirect("cart")
 
