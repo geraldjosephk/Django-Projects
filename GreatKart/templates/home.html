@@ -21,22 +21,31 @@
       <h3 class="section-title">Popular products</h3>
     </header>
     <!-- sect-heading -->
-    {% for product in products %}
     <div class="row">
-      <div class="col-md-3">
-        <div class="card card-product-grid">
-          <a href="{{ product.get_url }}" class="img-wrap">
-            <img src="{{ product.images.url }}" />
-          </a>
-          <figcaption class="info-wrap">
-            <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
-            <div class="price mt-1">{{ product.price }}</div>
-            <!-- price-wrap.// -->
-          </figcaption>
+      {% for product in products %}
+        <div class="col-md-4">
+          <figure class="card card-product-grid">
+            <div class="img-wrap">
+              <a href="{{ product.get_url }}">
+                <img src="{{ product.images.url }}" />
+              </a>
+            </div>
+            
+            <figcaption class="info-wrap">
+              <div class="fix-height">
+                <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                <div class="price-wrap mt-2">
+                  <span class="price">USD {{ product.price }} </span>
+                </div>
+              </div>
+              <a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Details</a>
+              <!-- price-wrap.// -->
+            </figcaption>
+          </figure>
         </div>
-      </div>
+      
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
   <!-- container // -->
 </section>
