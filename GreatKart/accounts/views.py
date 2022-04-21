@@ -1,3 +1,4 @@
+from itertools import product
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import Account
@@ -88,17 +89,43 @@ def login(request):
         )  # check if email and password is active
         if user is not None:
             try:
-                print("Entering try block")
                 cart = Cart.objects.get(cart_id=_cart_id(request))
                 is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
-                print(is_cart_item_exists)
+
                 if is_cart_item_exists:
                     cart_item = CartItem.objects.filter(cart=cart)
+
+                    # Getting product variations by cart id
+                    product_variation = []
                     for item in cart_item:
-                        item.user = user
-                        item.save()
+                        variation = item.variations.all()
+                        product_variation.append(list(variation))
+
+                    cart_item = CartItem.objects.filter(user=user)
+                    # fetch existing variations in database
+                    # display current product variation
+                    # fetch item id in database
+                    existing_variations_list = []
+                    id = []
+                    for item in cart_item:
+                        existing_variation = item.variations.all()
+                        existing_variations_list.append(list(existing_variation))
+                        id.append(item.id)
+                    # Matching product_variations = [1,2,3,4,5,6] with existing_variations_list =[4,6]
+                    for pr in product_variation:
+                        if pr in existing_variations_list:
+                            index = existing_variations_list.index(pr)
+                            item_id = id[index]
+                            item = CartItem.objects.get(id=item_id)
+                            item.quantity += 1
+                            item.user = user
+                            item.save()
+                        else:
+                            cart_item = CartItem.objects.filter(cart=cart)
+                            for item in cart_item:
+                                item.user = user
+                                item.save()
             except:
-                print("Entering except block")
                 pass
 
             auth.login(request, user)
