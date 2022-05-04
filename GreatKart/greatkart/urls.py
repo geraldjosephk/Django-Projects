@@ -28,4 +28,6 @@ urlpatterns = [
     path("store/", include("store.urls")),  # registering store page
     path("cart/", include("carts.urls")),
     path("accounts/", include("accounts.urls")),
+    # ORDERS
+    path("orders/", include("orders.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
