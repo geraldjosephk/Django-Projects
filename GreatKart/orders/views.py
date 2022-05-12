@@ -1,8 +1,5 @@
-from itertools import product
-from multiprocessing import context
 from django.shortcuts import redirect, render
-
-# from django.http import HttpResponse
+from store.models import Product
 from carts.models import CartItem
 from .forms import OrderForm
 from .models import Order, OrderProduct, Payment
@@ -110,8 +107,13 @@ def payments(request):
         orderproduct.variations.set(product_variation)
         orderproduct.save()
 
-    # Reduce the quantity of the solid products
+        # Reduce the quantity of the solid products
+        product = Product.objects.get(id=item.product_id)
+        product.stock -= item.quantity
+        product.save()
+
     # Clear cart
+    CartItem.objects.filter(user=request.user).delete()
     # Send order received email to customer
     # Send order number and transaction id back to sendData method via JSON response
 
