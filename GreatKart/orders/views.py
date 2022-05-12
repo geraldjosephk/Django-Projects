@@ -1,3 +1,4 @@
+from itertools import product
 from multiprocessing import context
 from django.shortcuts import redirect, render
 
@@ -101,6 +102,12 @@ def payments(request):
         orderproduct.quantity = item.quantity
         orderproduct.product_price = item.product_price
         orderproduct.ordered = True
+        orderproduct.save()
+
+        cart_item = CartItem.objects.get(id=item.id)
+        product_variation = cart_item.variations.all()
+        orderproduct = OrderProduct.objects.get(id=orderproduct.id)
+        orderproduct.variations.set(product_variation)
         orderproduct.save()
 
     # Reduce the quantity of the solid products
