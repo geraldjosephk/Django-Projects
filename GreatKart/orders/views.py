@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from store.models import Product
 from carts.models import CartItem
@@ -131,5 +132,14 @@ def payments(request):
     send_email.send()
 
     # Send order number and transaction id back to sendData method via JSON response
+    data = {
+        "order_number": order.order_number,
+        "transID": payment.payment_id,
+    }
 
-    return render(request, "orders/payments.html")
+    return JsonResponse(data)
+
+
+def order_complete(request):
+
+    return render(request, "orders/order_complete.html")
