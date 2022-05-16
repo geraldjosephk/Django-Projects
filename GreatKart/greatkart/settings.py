@@ -131,7 +131,9 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
 # Showing location the static file
-STATICFILES_DIRS = ["greatkart/static"]
+STATICFILES_DIRS = [
+    "greatkart/static",
+]
 
 # Configure Media files
 MEDIA_URL = "/media/"
