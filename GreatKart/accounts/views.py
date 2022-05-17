@@ -196,7 +196,7 @@ def dashboard(request):
     Function to display user dashboard.
     The user must be logged in.
     """
-    orders = Order.objects.order_by("created_at").filter(
+    orders = Order.objects.order_by("-created_at").filter(
         user_id=request.user.id, is_ordered=True
     )
     orders_count = orders.count()
@@ -290,3 +290,13 @@ def resetPassword(request):
             return redirect("resetPassword")
     else:
         return render(request, "accounts/resetPassword.html")
+
+
+def my_orders(request):
+    orders = Order.objects.filter(user_id=request.user.id, is_ordered=True).order_by(
+        "-created_at"
+    )  # the hyphen is order in ascending order
+    context = {
+        "orders": orders,
+    }
+    return render(request, "accounts/my_orders.html", context)
