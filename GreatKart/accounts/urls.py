@@ -22,4 +22,5 @@ urlpatterns = [
     # Edit profile
     path("edit_profile/", views.edit_profile, name="edit_profile"),
     path("change_password/", views.change_password, name="change_password"),
+    path("order_details/<int:order_id>", views.order_details, name="order_details"),
 ]
