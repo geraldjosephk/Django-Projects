@@ -1,4 +1,5 @@
-from orders.models import Order
+from GreatKart.orders.models import OrderProduct
+from orders.models import Order, OrderProduct
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
@@ -351,3 +352,21 @@ def change_password(request):
             return redirect("change_password")
 
     return render(request, "accounts/change_password.html")
+
+
+@login_required(login_url="login")
+def order_details(request, order_id):
+    order_details = OrderProduct.objects.filter(
+        order__order_number=order_id
+    )  # Access foreignkey with double under score
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_details:
+        subtotal += i.product_price * i.quantity
+    context = {
+        "order_details": order_details,
+        "order": order,
+        "subtotal": subtotal,
+    }
+
+    return render(request, "accounts/order_details.html", context)
