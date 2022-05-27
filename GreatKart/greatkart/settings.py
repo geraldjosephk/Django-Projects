@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import os
 from os import environ, path
 from dotenv import load_dotenv
 
@@ -129,11 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static"
+# STATIC_ROOT = BASE_DIR / "static"
 # Showing location the static file
-STATICFILES_DIRS = [
-    "greatkart/static",
-]
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Configure Media files
 MEDIA_URL = "/media/"
@@ -151,3 +150,5 @@ EMAIL_PORT = environ.get("EMAIL_PORT")
 EMAIL_HOST_USER = environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = environ.get("EMAIL_USE_TLS")
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
