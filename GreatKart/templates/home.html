@@ -23,27 +23,40 @@
     <!-- sect-heading -->
     <div class="row">
       {% for product in products %}
-        <div class="col-md-4">
-          <figure class="card card-product-grid">
-            <div class="img-wrap">
-              <a href="{{ product.get_url }}">
-                <img src="{{ product.images.url }}" />
-              </a>
-            </div>
-            
-            <figcaption class="info-wrap">
-              <div class="fix-height">
-                <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
-                <div class="price-wrap mt-2">
-                  <span class="price">USD {{ product.price }} </span>
-                </div>
+      <div class="col-md-4">
+        <figure class="card card-product-grid">
+          <div class="img-wrap">
+            <a href="{{ product.get_url }}">
+              <img src="{{ product.images.url }}" />
+            </a>
+          </div>
+
+          <figcaption class="info-wrap">
+            <div class="fix-height">
+              <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+              <div class="price-wrap mt-2">
+                <span class="price">USD {{ product.price }} </span>
               </div>
-              <a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Details</a>
-              <!-- price-wrap.// -->
-            </figcaption>
-          </figure>
-        </div>
-      
+            </div>
+            <!-- price-wrap.// -->
+            <div class="rating-star">
+              <span>
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}"
+                  aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}"
+                  aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}"
+                  aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}"
+                  aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o {% endif %}"
+                  aria-hidden="true"></i>
+              </span>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+
       {% endfor %}
     </div>
   </div>
