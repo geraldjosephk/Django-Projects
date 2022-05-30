@@ -23,7 +23,8 @@ from django.conf import settings
 from . import views  # including views module in admin
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
+    path("securelogin/", admin.site.urls),
     path("", views.home, name="home"),  # registering home page
     path("store/", include("store.urls")),  # registering store page
     path("cart/", include("carts.urls")),
