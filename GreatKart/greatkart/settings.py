@@ -29,7 +29,9 @@ SECRET_KEY = environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ.get("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "http://greatkart-env.eba-qyr2upnm.us-west-2.elasticbeanstalk.com",
+]
 
 
 # Application definition
